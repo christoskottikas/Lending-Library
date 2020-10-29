@@ -25,6 +25,12 @@ public class LendingController {
 	@Autowired
 	BookInterface bookInterface;
 
+	/**
+	 * In this method we calculate the expiration date of the lend and then we insert the lent into the database via the given userId and bookId.
+	 * @param userId
+	 * @param bookId
+	 * @return true if it is completed successfully.
+	 */
 	@ResponseBody
 	@GetMapping("/lendBook/{userId}/{bookId}")
 	public boolean lendBook(@PathVariable("userId") Integer userId, @PathVariable("bookId") Integer bookId) {
@@ -49,6 +55,12 @@ public class LendingController {
 
 	}
 
+	/**
+	 * In this method we check if the return date is after the expiration date in order to calculate the cost and we update the lend into the database via the given userId and bookId.
+	 * @param userId
+	 * @param bookId
+	 * @return a String message.
+	 */
 	@ResponseBody
 	@GetMapping("/returnBook/{userId}/{bookId}")
 	public String returnBook(@PathVariable("userId") Integer userId, @PathVariable("bookId") Integer bookId) {
@@ -57,6 +69,7 @@ public class LendingController {
 		
 		try {
 			lend.setReturnDate(currentDate);
+			lendingInterface.insertLend(lend);
 			if (currentDate.after(lend.getExpirationDate())) {
 				Book book = bookInterface.findBookById(bookId);
 				LocalDateTime localDateTime = currentDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();

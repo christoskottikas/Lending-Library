@@ -34,7 +34,13 @@ public class UserController {
 	public List<User> getAllEmployees() {
 		return userInterface.findAllEmployees();
 	}
-
+	
+/**
+ * In this method we check if the login user is Guest or Employee and if his credentials are correct.
+ * @param username
+ * @param password
+ * @return a String message.
+ */
 	@ResponseBody
 	@GetMapping("/login/{username}/{password}")
 	public String login(@PathVariable("username") String username, @PathVariable("password") String password) {

@@ -35,9 +35,9 @@ public class BookController {
 		return bookInterface.findBooksByAuthorName(authorName);
 	}
 	
-//	@ResponseBody
-//	@GetMapping("/getBooksById/{bookId}")
-//	public List<Book> getBooksById(@PathVariable("bookId") String bookId) {
-//		return bookInterface.findBooksByAuthorName(bookId);
-//	}
+	@ResponseBody
+	@GetMapping("/getBookById/{bookId}")
+	public Book getBookById(@PathVariable("bookId") Integer bookId) {
+		return bookInterface.findBookById(bookId);
+	}
 }
